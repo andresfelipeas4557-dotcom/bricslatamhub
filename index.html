@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="BRICS–LATAM Intelligence Hub: plataforma de inteligencia comercial para oportunidades de inversión y cooperación entre América Latina y los países BRICS."/>
+<meta property="og:title" content="BRICS–LATAM Intelligence Hub"/>
+<meta property="og:description" content="Conectando economías emergentes para un futuro sostenible."/>
+<meta property="og:type" content="website"/>
+<title>BRICS–LATAM Intelligence Hub</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;--gold-bg:#FDF6E3;--gold-text:#7A5200;
+  --emerald:#1D9E75;--emerald-bg:#E1F5EE;--emerald-text:#085041;
+  --purple:#534AB7;--purple-bg:#EEEDFE;--purple-text:#26215C;
+  --blue:#378ADD;--blue-bg:#E6F1FB;--blue-text:#042C53;
+  --coral:#D85A30;--coral-bg:#FAECE7;--coral-text:#4A1B0C;
+  --bg:#F8F7F4;--surface:#FFFFFF;--border:#E5E3DC;
+  --text:#1A1A18;--muted:#6B6964;--hint:#9E9C97;
+  --radius:10px;--radius-lg:14px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6}
+
+/* NAV */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--gold),var(--emerald));display:flex;align-items:center;justify-content:center;font-size:18px}
+.nav-title{font-size:16px;font-weight:600;color:var(--text)}
+.nav-title span{color:var(--gold)}
+.nav-badge{font-size:11px;background:var(--emerald-bg);color:var(--emerald-text);padding:2px 8px;border-radius:20px;margin-left:6px;font-weight:500}
+.nav-tabs{display:flex;gap:4px}
+.nav-tab{padding:7px 14px;border-radius:var(--radius);font-size:13px;color:var(--muted);cursor:pointer;border:none;background:none;transition:all .15s;font-weight:500}
+.nav-tab:hover{background:var(--bg);color:var(--text)}
+.nav-tab.active{background:var(--bg);color:var(--text)}
+.nav-cta{padding:8px 18px;border-radius:var(--radius);background:var(--gold);color:#2A1F00;font-size:13px;font-weight:600;border:none;cursor:pointer}
+.nav-cta:hover{opacity:.9}
+
+/* SECTIONS */
+.section{display:none;padding:28px;max-width:1100px;margin:0 auto}
+.section.active{display:block}
+.sec-title{font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--muted);margin-bottom:20px}
+
+/* HERO */
+.hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px 36px;margin-bottom:24px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;right:-20px;top:-20px;font-size:200px;opacity:.04;pointer-events:none;line-height:1}
+.hero-badge{display:inline-block;padding:4px 14px;border-radius:20px;background:var(--gold-bg);color:var(--gold-text);font-size:12px;font-weight:600;margin-bottom:14px;border:1px solid #F0D080}
+.hero-h1{font-size:30px;font-weight:700;line-height:1.25;margin-bottom:10px}
+.hero-h1 em{color:var(--gold);font-style:normal}
+.hero-sub{font-size:15px;color:var(--muted);max-width:560px;margin-bottom:28px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:var(--bg);border-radius:var(--radius);padding:14px 16px}
+.kpi-val{font-size:24px;font-weight:700}
+.kpi-label{font-size:12px;color:var(--muted);margin-top:2px}
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.quick-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;cursor:pointer;transition:border-color .15s}
+.quick-card:hover{border-color:var(--gold)}
+.quick-icon{font-size:26px;margin-bottom:10px}
+.quick-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.quick-desc{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px}
+.card:hover{border-color:var(--gold)}
+
+/* FILTERS */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:18px}
+.filter-group label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:500}
+select,input[type=text]{padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--surface);color:var(--text);min-width:130px}
+select:focus,input:focus{outline:2px solid var(--emerald);border-color:transparent}
+.btn-primary{padding:9px 20px;background:var(--emerald);color:#fff;border:none;border-radius:var(--radius);font-size:13px;font-weight:600;cursor:pointer}
+.btn-primary:hover{opacity:.9}
+.btn-secondary{padding:9px 14px;background:none;color:var(--muted);border:1px solid var(--border);border-radius:var(--radius);font-size:13px;cursor:pointer}
+.btn-secondary:hover{background:var(--bg)}
+.btn-ai{width:100%;margin-top:12px;padding:9px;background:none;border:1px solid var(--emerald);border-radius:var(--radius);font-size:12px;color:var(--emerald);cursor:pointer;font-weight:600;transition:all .15s}
+.btn-ai:hover{background:var(--emerald-bg)}
+
+/* OPP CARDS */
+.opp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.opp-score{display:flex;flex-direction:column;align-items:center;justify-content:center;width:50px;height:50px;border-radius:50%;border:3px solid;flex-shrink:0}
+.opp-score-val{font-size:15px;font-weight:700}
+.pill{padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500}
+.pill-emerald{background:var(--emerald-bg);color:var(--emerald-text)}
+.pill-blue{background:var(--blue-bg);color:var(--blue-text)}
+.pill-gold{background:var(--gold-bg);color:var(--gold-text)}
+.pill-purple{background:var(--purple-bg);color:var(--purple-text)}
+.pill-coral{background:var(--coral-bg);color:var(--coral-text)}
+.bar-track{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin:10px 0 6px}
+.bar-fill{height:100%;border-radius:3px}
+
+/* AI PANEL */
+.ai-panel{background:var(--surface);border:1.5px solid var(--emerald);border-radius:var(--radius-lg);padding:20px;margin-top:18px}
+.ai-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.ai-icon{width:36px;height:36px;background:var(--emerald-bg);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ai-body{font-size:13px;color:var(--text);line-height:1.8;white-space:pre-wrap}
+.thinking{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--emerald);animation:pulse 1.2s infinite}
+.dot:nth-child(2){animation-delay:.4s}
+.dot:nth-child(3){animation-delay:.8s}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+
+/* COMPARADOR */
+.cmp-table{width:100%;border-collapse:collapse;font-size:13px}
+.cmp-table th{text-align:left;padding:10px 14px;font-size:11px;font-weight:600;color:var(--muted);background:var(--bg);border-bottom:1px solid var(--border)}
+.cmp-table td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+.cmp-table tr:hover td{background:var(--bg)}
+.rank{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.rank-good{background:#EAF3DE;color:#27500A}
+.rank-ok{background:#FAEEDA;color:#633806}
+.rank-bad{background:#FCEBEB;color:#791F1F}
+
+/* FINANCIERO */
+.fin-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.slider-row{margin-bottom:14px}
+.slider-hdr{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.slider-val{color:var(--text);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--emerald)}
+.result-box{background:var(--bg);border-radius:var(--radius);padding:16px;text-align:center;margin-top:16px}
+.result-lbl{font-size:11px;color:var(--muted)}
+.result-val{font-size:32px;font-weight:700;color:var(--emerald)}
+.scen-tabs{display:flex;gap:6px;margin-bottom:16px}
+.scen-tab{padding:5px 14px;border-radius:var(--radius);font-size:12px;border:1px solid var(--border);background:none;cursor:pointer;color:var(--muted);font-weight:500}
+.scen-tab.active{background:var(--bg);color:var(--text);border-color:var(--text)}
+.risk-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px}
+
+/* CASOS */
+.caso{display:flex;gap:16px;padding:18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);margin-bottom:14px}
+.caso-icon{width:52px;height:52px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.caso-kpis{display:flex;gap:20px;margin-top:10px}
+.caso-kpi-val{font-size:18px;font-weight:700;color:var(--emerald)}
+.caso-kpi-lbl{font-size:11px;color:var(--muted)}
+
+/* RADAR */
+.alert-card{border-left:3px solid;border-radius:0 var(--radius-lg) var(--radius-lg) 0;background:var(--surface);border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px;margin-bottom:10px;cursor:pointer;transition:opacity .15s}
+.alert-card:hover{opacity:.85}
+
+/* TENDENCIAS */
+.trend-chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px}
+.legend{display:flex;gap:20px;font-size:12px;color:var(--muted);margin-bottom:14px}
+.legend-dot{width:12px;height:12px;border-radius:2px;display:inline-block;margin-right:5px}
+.sector-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:13px}
+.sector-bar-label{width:140px;color:var(--muted);flex-shrink:0}
+.sector-bar-track{flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden}
+.sector-bar-fill{height:100%;border-radius:4px}
+.metric-card{background:var(--bg);border-radius:var(--radius);padding:14px 16px}
+.metric-val{font-size:26px;font-weight:700}
+.metric-lbl{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border-radius:var(--radius-lg);padding:28px;max-width:540px;width:90%;max-height:85vh;overflow-y:auto}
+.modal h3{font-size:17px;font-weight:600;margin-bottom:8px}
+.modal-close{float:right;background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);margin-top:-4px}
+input[type=text],input[type=email],textarea{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;margin-bottom:10px;font-family:inherit}
+textarea{resize:vertical;min-height:80px}
+
+@media(max-width:700px){
+  .kpi-grid,.quick-grid{grid-template-columns:repeat(2,1fr)}
+  .fin-grid{grid-template-columns:1fr}
+  .nav-tabs{display:none}
+  .nav-cta{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">🌐</div>
+    <span class="nav-title">BRICS–<span>LATAM</span></span>
+    <span class="nav-badge">IA activa</span>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="goTo('hero')">Inicio</button>
+    <button class="nav-tab" onclick="goTo('explorador')">Explorador</button>
+    <button class="nav-tab" onclick="goTo('sectores')">Sectores</button>
+    <button class="nav-tab" onclick="goTo('comparador')">Comparador</button>
+    <button class="nav-tab" onclick="goTo('financiero')">Modelos</button>
+    <button class="nav-tab" onclick="goTo('casos')">Casos</button>
+    <button class="nav-tab" onclick="goTo('radar')">Radar</button>
+    <button class="nav-tab" onclick="goTo('tendencias')">Tendencias</button>
+  </div>
+  <button class="nav-cta" onclick="openModal()">Solicitar informe</button>
+</nav>
+
+<!-- HERO -->
+<div id="sec-hero" class="section active">
+  <div class="hero">
+    <div class="hero-bg">🌍</div>
+    <div class="hero-badge">🏆 Hub de Inteligencia Comercial · 2025</div>
+    <h1 class="hero-h1">Conectando economías emergentes<br>para un <em>futuro sostenible</em></h1>
+    <p class="hero-sub">BRICS–LATAM es la plataforma de referencia para empresarios, inversionistas y entidades que buscan oportunidades reales en los mercados más dinámicos del mundo.</p>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-val" style="color:var(--gold)">$4.2T</div><div class="kpi-label">Comercio bilateral anual</div></div>
+      <div class="kpi"><div class="kpi-val" style="color:var(--emerald)">847</div><div class="kpi-label">Oportunidades activas</div></div>
+      <div class="kpi"><div class="kpi-val">12</div><div class="kpi-label">Países BRICS + LATAM</div></div>
+      <div class="kpi"><div class="kpi-val" style="color:var(--purple)">68%</div><div class="kpi-label">Proyectos alineados ODS</div></div>
+    </div>
+  </div>
+  <div class="quick-grid">
+    <div class="quick-card" onclick="goTo('explorador')"><div class="quick-icon">🔍</div><div class="quick-name">Explorar oportunidades</div><div class="quick-desc">Score IA de viabilidad por sector, país y tipo de operación.</div></div>
+    <div class="quick-card" onclick="goTo('comparador')"><div class="quick-icon">📊</div><div class="quick-name">Comparar países</div><div class="quick-desc">Indicadores de riesgo, aranceles y facilidad de negocios.</div></div>
+    <div class="quick-card" onclick="goTo('financiero')"><div class="quick-icon">💰</div><div class="quick-name">Modelos financieros</div><div class="quick-desc">Simulador de ROI con escenarios conservador, base y optimista.</div></div>
+    <div class="quick-card" onclick="goTo('radar')"><div class="quick-icon">🛰️</div><div class="quick-name">Radar geopolítico</div><div class="quick-desc">Alertas activas sobre tratados, políticas y tendencias 2025–2030.</div></div>
+  </div>
+</div>
+
+<!-- EXPLORADOR -->
+<div id="sec-explorador" class="section">
+  <div class="sec-title">Explorador de oportunidades <span class="pill pill-emerald" style="font-size:12px;margin-left:8px">IA activa</span></div>
+  <div class="sec-sub" id="opp-count">Cargando oportunidades...</div>
+  <div class="filter-bar">
+    <div class="filter-group"><label>País destino</label><select id="f-pais" onchange="renderOpps()"><option value="">Todos</option></select></div>
+    <div class="filter-group"><label>Sector</label><select id="f-sector" onchange="renderOpps()"><option value="">Todos</option></select></div>
+    <div class="filter-group"><label>Tipo de operación</label><select id="f-tipo" onchange="renderOpps()"><option value="">Todos</option></select></div>
+    <div class="filter-group"><label>Ordenar</label><select id="f-sort" onchange="renderOpps()"><option value="score">Mayor score</option><option value="nombre">A–Z</option></select></div>
+    <button class="btn-secondary" onclick="resetFilters()">Limpiar</button>
+  </div>
+  <div class="opp-grid" id="opp-grid"></div>
+  <div id="ai-panel" style="display:none" class="ai-panel">
+    <div class="ai-header">
+      <div class="ai-icon">🤖</div>
+      <div><div style="font-size:14px;font-weight:600" id="ai-title">Análisis IA</div><div style="font-size:12px;color:var(--muted)" id="ai-sub"></div></div>
+    </div>
+    <div id="ai-body" class="ai-body"></div>
+  </div>
+</div>
+
+<!-- SECTORES -->
+<div id="sec-sectores" class="section">
+  <div class="sec-title">Análisis de sectores</div>
+  <div class="sec-sub">Ventajas comparativas, barreras de entrada y potencial por sector</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px" id="sector-grid"></div>
+</div>
+
+<!-- COMPARADOR -->
+<div id="sec-comparador" class="section">
+  <div class="sec-title">Comparador de países</div>
+  <div class="sec-sub">Indicadores clave para decisiones de inversión y exportación en el corredor BRICS–LATAM</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:auto">
+    <table class="cmp-table"><thead><tr>
+      <th>País</th><th>PIB (T USD)</th><th>Crecimiento %</th><th>Facilidad de negocio</th><th>Riesgo país</th><th>Arancel prom.</th><th>Tratados LATAM</th>
+    </tr></thead><tbody id="cmp-body"></tbody></table>
+  </div>
+</div>
+
+<!-- FINANCIERO -->
+<div id="sec-financiero" class="section">
+  <div class="sec-title">Modelos financieros</div>
+  <div class="sec-sub">Simulador de ROI y análisis de riesgo-retorno para proyectos BRICS–LATAM</div>
+  <div class="fin-grid">
+    <div class="card">
+      <div style="font-size:15px;font-weight:600;margin-bottom:18px">🧮 Simulador de ROI</div>
+      <div class="slider-row"><div class="slider-hdr"><span>Inversión inicial (USD)</span><span class="slider-val" id="v-inv">$500,000</span></div><input type="range" min="50000" max="5000000" step="50000" value="500000" oninput="calcROI()" id="r-inv"></div>
+      <div class="slider-row"><div class="slider-hdr"><span>Margen neto (%)</span><span class="slider-val" id="v-mar">18%</span></div><input type="range" min="5" max="45" step="1" value="18" oninput="calcROI()" id="r-mar"></div>
+      <div class="slider-row"><div class="slider-hdr"><span>Período (años)</span><span class="slider-val" id="v-per">3 años</span></div><input type="range" min="1" max="10" step="1" value="3" oninput="calcROI()" id="r-per"></div>
+      <div class="slider-row"><div class="slider-hdr"><span>Factor BRICS (ventaja mercado)</span><span class="slider-val" id="v-bri">1.2x</span></div><input type="range" min="10" max="20" step="1" value="12" oninput="calcROI()" id="r-bri"></div>
+      <div class="result-box"><div class="result-lbl">ROI estimado al período</div><div class="result-val" id="roi-val">64.8%</div><div style="font-size:12px;color:var(--muted);margin-top:4px" id="roi-sub">Retorno neto: $324,000 USD</div></div>
+    </div>
+    <div class="card">
+      <div style="font-size:15px;font-weight:600;margin-bottom:14px">🛡️ Análisis de riesgo por escenario</div>
+      <div class="scen-tabs">
+        <button class="scen-tab active" onclick="setScen('conservador',this)">Conservador</button>
+        <button class="scen-tab" onclick="setScen('base',this)">Base</button>
+        <button class="scen-tab" onclick="setScen('optimista',this)">Optimista</button>
+      </div>
+      <div id="risk-rows"></div>
+      <div class="result-box" style="margin-top:14px"><div class="result-lbl">Recomendación estratégica</div><div style="font-size:13px;color:var(--muted);margin-top:6px;line-height:1.6" id="scen-rec"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CASOS -->
+<div id="sec-casos" class="section">
+  <div class="sec-title">Casos de éxito</div>
+  <div class="sec-sub">Proyectos reales de cooperación LATAM–BRICS con impacto medible</div>
+  <div id="casos-list"></div>
+</div>
+
+<!-- RADAR -->
+<div id="sec-radar" class="section">
+  <div class="sec-title">Radar geopolítico <span class="pill pill-purple" style="font-size:12px;margin-left:8px">análisis IA</span></div>
+  <div class="sec-sub">Alertas activas · Haz clic en cualquier alerta para análisis estratégico con IA</div>
+  <div style="display:flex;gap:8px;margin-bottom:18px" id="alert-filters"></div>
+  <div id="alerts-list"></div>
+  <div id="radar-panel" style="display:none" class="ai-panel" style="border-color:var(--purple)">
+    <div class="ai-header">
+      <div class="ai-icon" style="background:var(--purple-bg)">🛰️</div>
+      <div><div style="font-size:14px;font-weight:600" id="radar-title">Análisis geopolítico IA</div><div style="font-size:12px;color:var(--muted)" id="radar-sub"></div></div>
+    </div>
+    <div id="radar-body" class="ai-body"></div>
+  </div>
+</div>
+
+<!-- TENDENCIAS -->
+<div id="sec-tendencias" class="section">
+  <div class="sec-title">Proyecciones estratégicas 2025–2030</div>
+  <div class="sec-sub">Comercio bilateral, inversión y crecimiento de oportunidades en el corredor BRICS–LATAM</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px">
+    <div class="metric-card"><div class="metric-val" style="color:var(--emerald)">$11T</div><div class="metric-lbl">Comercio bilateral 2030</div></div>
+    <div class="metric-card"><div class="metric-val" style="color:var(--gold)">$6.8T</div><div class="metric-lbl">Inversión acumulada 2030</div></div>
+    <div class="metric-card"><div class="metric-val" style="color:var(--purple)">2,400</div><div class="metric-lbl">Oportunidades proyectadas</div></div>
+  </div>
+  <div class="trend-chart-wrap" style="margin-bottom:20px">
+    <div class="legend">
+      <span><span class="legend-dot" style="background:var(--emerald)"></span>Comercio (T USD)</span>
+      <span><span class="legend-dot" style="background:var(--gold)"></span>Inversión (T USD)</span>
+    </div>
+    <svg id="trend-svg" viewBox="0 0 640 160" style="width:100%;display:block"></svg>
+  </div>
+  <div class="card">
+    <div style="font-size:15px;font-weight:600;margin-bottom:16px">Distribución de oportunidades por sector</div>
+    <div id="sector-bars"></div>
+  </div>
+</div>
+
+<!-- MODAL CONTACTO -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3>Solicitar informe personalizado</h3>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:18px">Nuestro equipo preparará un análisis estratégico a medida para tu organización.</p>
+    <input type="text" placeholder="Nombre completo *" id="m-nombre"/>
+    <input type="email" placeholder="Correo institucional *" id="m-email"/>
+    <input type="text" placeholder="Organización / empresa" id="m-org"/>
+    <select style="width:100%;margin-bottom:10px"><option>Sector de interés</option><option>Agroindustria</option><option>Tecnología</option><option>Energía renovable</option><option>Minería</option><option>Manufactura</option><option>Servicios financieros</option></select>
+    <textarea placeholder="¿Cuál es su objetivo principal? (exportar, invertir, cooperación técnica...)" id="m-msg"></textarea>
+    <button class="btn-primary" style="width:100%" onclick="submitModal()">Enviar solicitud</button>
+  </div>
+</div>
+
+<script>
+const OPPS=[
+  {id:1,nombre:"Café de especialidad",sector:"Agroindustria",tipo:"Exportación",paises:["China","India"],score:92,inversion:"$80K–500K",plazo:"6–12 meses",tags:["Orgánico","ODS 2","Premium"]},
+  {id:2,nombre:"Plantas solares fotovoltaicas",sector:"Energía renovable",tipo:"Inversión directa",paises:["Brasil","EAU"],score:87,inversion:"$2M–20M",plazo:"18–36 meses",tags:["Verde","Infraestructura","ODS 7"]},
+  {id:3,nombre:"Software logística portuaria",sector:"Tecnología",tipo:"Joint venture",paises:["China","Rusia"],score:81,inversion:"$300K–2M",plazo:"12–24 meses",tags:["SaaS","B2B","Escalable"]},
+  {id:4,nombre:"Litio para baterías EV",sector:"Minería",tipo:"Exportación",paises:["China","India","EAU"],score:95,inversion:"$5M–50M",plazo:"12–18 meses",tags:["Crítico","Estratégico","Alta demanda"]},
+  {id:5,nombre:"Biotecnología agrícola",sector:"Agroindustria",tipo:"Cooperación técnica",paises:["Brasil","India"],score:76,inversion:"$200K–1M",plazo:"24–48 meses",tags:["I+D","ODS 2","Semillas"]},
+  {id:6,nombre:"Pagos transfronterizos fintech",sector:"Servicios financieros",tipo:"Joint venture",paises:["Brasil","India","China"],score:88,inversion:"$500K–3M",plazo:"6–18 meses",tags:["Fintech","B2C","Escala"]},
+  {id:7,nombre:"Acuicultura sostenible",sector:"Agroindustria",tipo:"Exportación",paises:["China","Rusia"],score:79,inversion:"$300K–2M",plazo:"8–16 meses",tags:["ODS 14","Sostenible"]},
+  {id:8,nombre:"Manufactura textiles técnicos",sector:"Manufactura",tipo:"Joint venture",paises:["China","Sudáfrica"],score:72,inversion:"$1M–8M",plazo:"12–24 meses",tags:["Empleo","Exportación"]},
+  {id:9,nombre:"Infraestructura ferroviaria",sector:"Infraestructura",tipo:"Inversión directa",paises:["China","Brasil"],score:84,inversion:"$50M–200M",plazo:"36–60 meses",tags:["Concesión","ODS 9"]},
+  {id:10,nombre:"Ciberseguridad para gobierno",sector:"Tecnología",tipo:"Cooperación técnica",paises:["India","EAU"],score:80,inversion:"$1M–5M",plazo:"12–24 meses",tags:["GovTech","B2G"]},
+  {id:11,nombre:"Turismo de naturaleza premium",sector:"Turismo",tipo:"Joint venture",paises:["China","India"],score:74,inversion:"$500K–3M",plazo:"12–24 meses",tags:["ODS 8","Marca país"]},
+  {id:12,nombre:"Cobre refinado para EV",sector:"Minería",tipo:"Exportación",paises:["China","India"],score:91,inversion:"$10M–80M",plazo:"6–12 meses",tags:["EV","Alta demanda"]},
+];
+
+const SECTORES=[
+  {nombre:"Agroindustria",icon:"🌾",vol:"$420B",bars:[{l:"China",v:90},{l:"India",v:72},{l:"Brasil",v:88}],color:"#1D9E75"},
+  {nombre:"Tecnología",icon:"💻",vol:"$310B",bars:[{l:"China",v:95},{l:"India",v:87},{l:"EAU",v:76}],color:"#534AB7"},
+  {nombre:"Energía renovable",icon:"☀️",vol:"$280B",bars:[{l:"EAU",v:84},{l:"China",v:92},{l:"Brasil",v:78}],color:"#C9A84C"},
+  {nombre:"Minería & Litio",icon:"⛏️",vol:"$190B",bars:[{l:"China",v:88},{l:"Sudáfrica",v:82},{l:"Rusia",v:70}],color:"#D85A30"},
+  {nombre:"Manufactura",icon:"🏭",vol:"$370B",bars:[{l:"China",v:96},{l:"India",v:80},{l:"México",v:74}],color:"#378ADD"},
+  {nombre:"Servicios financieros",icon:"🏦",vol:"$150B",bars:[{l:"EAU",v:90},{l:"China",v:85},{l:"India",v:78}],color:"#D4537E"},
+];
+
+const PAISES=[
+  {pais:"🇨🇳 China",pib:"17.8",crec:5.2,neg:"alto",riesgo:"bajo",arancel:"7.5%",tratados:8},
+  {pais:"🇮🇳 India",pib:"3.7",crec:6.8,neg:"alto",riesgo:"bajo",arancel:"13.0%",tratados:4},
+  {pais:"🇧🇷 Brasil",pib:"2.1",crec:2.9,neg:"medio",riesgo:"medio",arancel:"11.2%",tratados:12},
+  {pais:"🇿🇦 Sudáfrica",pib:"0.4",crec:1.4,neg:"medio",riesgo:"medio",arancel:"8.0%",tratados:6},
+  {pais:"🇦🇪 EAU",pib:"0.5",crec:4.1,neg:"alto",riesgo:"bajo",arancel:"4.5%",tratados:5},
+  {pais:"🇷🇺 Rusia",pib:"2.2",crec:2.2,neg:"bajo",riesgo:"alto",arancel:"6.0%",tratados:3},
+  {pais:"🇨🇴 Colombia",pib:"0.35",crec:2.1,neg:"medio",riesgo:"medio",arancel:"5.0%",tratados:15},
+  {pais:"🇲🇽 México",pib:"1.3",crec:1.8,neg:"alto",riesgo:"bajo",arancel:"6.5%",tratados:13},
+];
+
+const SCENS={
+  conservador:{rows:[{l:"Riesgo político",s:"3.5",c:"#E24B4A"},{l:"Riesgo cambiario",s:"4.1",c:"#E24B4A"},{l:"Riesgo regulatorio",s:"5.2",c:"#C9A84C"},{l:"Riesgo operativo",s:"6.0",c:"#C9A84C"},{l:"Potencial retorno",s:"6.5",c:"#1D9E75"}],rec:"Apropiado para horizontes largos. Priorizar agroindustria y energía con garantías multilaterales."},
+  base:{rows:[{l:"Riesgo político",s:"5.5",c:"#C9A84C"},{l:"Riesgo cambiario",s:"6.0",c:"#1D9E75"},{l:"Riesgo regulatorio",s:"6.8",c:"#1D9E75"},{l:"Riesgo operativo",s:"7.2",c:"#1D9E75"},{l:"Potencial retorno",s:"7.8",c:"#1D9E75"}],rec:"Escenario equilibrado. Tecnología y servicios financieros ofrecen mejor relación riesgo-retorno."},
+  optimista:{rows:[{l:"Riesgo político",s:"7.0",c:"#1D9E75"},{l:"Riesgo cambiario",s:"7.5",c:"#1D9E75"},{l:"Riesgo regulatorio",s:"8.0",c:"#1D9E75"},{l:"Riesgo operativo",s:"8.5",c:"#1D9E75"},{l:"Potencial retorno",s:"9.2",c:"#1D9E75"}],rec:"Contexto de aceleración BRICS. Litio, tecnología y energía con retornos >20% anuales. Ventana 2025–2027."},
+};
+
+const CASOS=[
+  {icon:"☕",bg:"#EAF3DE",meta:"Colombia → China · Agroindustria · 2023",title:"Café de especialidad en el mercado premium chino",desc:"Alianza entre cooperativas cafeteras colombianas y distribuidores chinos de lujo. Posicionamiento en 240 tiendas de alta gama en Shanghai, Beijing y Guangzhou.",kpis:[{v:"$12M",l:"Exportaciones"},{v:"3,200",l:"Empleos"},{v:"240",l:"Puntos de venta"}]},
+  {icon:"⚡",bg:"#E6F1FB",meta:"Brasil + Argentina → India · Energía · 2024",title:"Parque solar binacional con tecnología india",desc:"Joint venture con TechSol India para 800 MW de capacidad solar en el corredor del MERCOSUR, con financiamiento del Banco de Desarrollo BRICS.",kpis:[{v:"800 MW",l:"Capacidad"},{v:"$1.4B",l:"Inversión"},{v:"180K",l:"Hogares"}]},
+  {icon:"🔋",bg:"#FAEEDA",meta:"Chile + Bolivia → China · Minería · 2024",title:"Consorcio de litio para cadena de baterías EV",desc:"Suministro garantizado de litio durante 15 años a tres fabricantes chinos de baterías, con transferencia tecnológica incluida en el acuerdo.",kpis:[{v:"85K t/año",l:"Producción"},{v:"$3.2B",l:"Contrato"},{v:"15 años",l:"Horizonte"}]},
+  {icon:"🏥",bg:"#EEEDFE",meta:"México → India · Salud · 2023",title:"Exportación de dispositivos médicos a India",desc:"Empresa mexicana de dispositivos ortopédicos logró certificación BIS y entrada a 12 estados de India mediante alianza con distribuidor local.",kpis:[{v:"$28M",l:"Ventas año 1"},{v:"12",l:"Estados India"},{v:"6 meses",l:"Time to market"}]},
+];
+
+const ALERTS=[
+  {nivel:"alto",color:"#E24B4A",titulo:"Nuevo mecanismo de pagos BRICS",desc:"Brasil y China activan swap bilateral en moneda local. Reduce exposición al USD en $120B de comercio anual.",fecha:"15 May 2025",impacto:"Finanzas · Exportación"},
+  {nivel:"medio",color:"#C9A84C",titulo:"India amplía preferencias arancelarias LATAM",desc:"Nuevo esquema SAPTA reduce aranceles del 13% al 7.5% para 48 productos agroalimentarios.",fecha:"8 May 2025",impacto:"Agroindustria · Colombia · Ecuador"},
+  {nivel:"positivo",color:"#1D9E75",titulo:"Brasil–China: acuerdo infraestructura verde $40B",desc:"Financiamiento BRICS para 12 proyectos de energía renovable en el corredor Amazónico.",fecha:"2 May 2025",impacto:"Energía · Manufactura · Logística"},
+  {nivel:"positivo",color:"#378ADD",titulo:"EAU abre zona franca para empresas LATAM",desc:"Dubai South Zone ofrece 0% impuesto corporativo y 100% propiedad extranjera a empresas latinoamericanas.",fecha:"28 Abr 2025",impacto:"Logística · Servicios · Fintech"},
+  {nivel:"medio",color:"#C9A84C",titulo:"Rusia reactiva acuerdos agrícolas con Argentina",desc:"Acuerdo de suministro de granos y proteínas por $3.2B para 2025–2027 con pagos en rublos.",fecha:"20 Abr 2025",impacto:"Agroindustria · Argentina"},
+  {nivel:"alto",color:"#E24B4A",titulo:"Tensión arancelaria EE.UU.–China: oportunidad LATAM",desc:"Empresas chinas buscan proveedores alternativos en LATAM para 34 categorías de productos industriales.",fecha:"10 Abr 2025",impacto:"Manufactura · Minería · Todos"},
+];
+
+const TENDENCIAS=[{y:"2025",c:4.2,i:1.8},{y:"2026",c:5.1,i:2.4},{y:"2027",c:6.3,i:3.1},{y:"2028",c:7.8,i:4.0},{y:"2029",c:9.2,i:5.2},{y:"2030",c:11.0,i:6.8}];
+const SECS_PESO=[{s:"Agroindustria",p:28,c:"#1D9E75"},{s:"Minería & Litio",p:24,c:"#C9A84C"},{s:"Tecnología",p:19,c:"#534AB7"},{s:"Energía renovable",p:15,c:"#378ADD"},{s:"Manufactura",p:9,c:"#D85A30"},{s:"Otros",p:5,c:"#888780"}];
+
+let alertLevel="todos";
+
+function goTo(sec){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('sec-'+sec).classList.add('active');
+  const map=['hero','explorador','sectores','comparador','financiero','casos','radar','tendencias'];
+  const idx=map.indexOf(sec);
+  const tabs=document.querySelectorAll('.nav-tab');
+  if(idx>=0&&tabs[idx])tabs[idx].classList.add('active');
+}
+
+function scoreColor(s){return s>=85?'#1D9E75':s>=75?'#C9A84C':'#E24B4A';}
+
+function renderOpps(){
+  const fp=document.getElementById('f-pais').value;
+  const fs=document.getElementById('f-sector').value;
+  const ft=document.getElementById('f-tipo').value;
+  const sort=document.getElementById('f-sort').value;
+  let list=OPPS.filter(o=>(!fp||o.paises.includes(fp))&&(!fs||o.sector===fs)&&(!ft||o.tipo===ft));
+  if(sort==='score')list.sort((a,b)=>b.score-a.score);else list.sort((a,b)=>a.nombre.localeCompare(b.nombre));
+  document.getElementById('opp-count').textContent=list.length+' oportunidades encontradas · Haz clic en una para análisis IA';
+  const g=document.getElementById('opp-grid');
+  g.innerHTML=list.map(o=>{
+    const c=scoreColor(o.score);
+    return`<div class="card" style="cursor:pointer" onclick="analizarOpp(${o.id})">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+        <div><div style="font-size:11px;color:var(--muted)">${o.sector} · ${o.tipo}</div><div style="font-size:14px;font-weight:600;margin-top:2px">${o.nombre}</div></div>
+        <div class="opp-score" style="border-color:${c};color:${c}"><span class="opp-score-val">${o.score}</span></div>
+      </div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">${o.tags.map(t=>`<span class="pill pill-emerald">${t}</span>`).join('')}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${o.score}%;background:${c}"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted)">${o.inversion} · ${o.plazo}</div>
+      <div style="display:flex;gap:5px;margin-top:8px">${o.paises.map(p=>`<span class="pill pill-blue">${p}</span>`).join('')}</div>
+      <button class="btn-ai">Analizar con IA →</button>
+    </div>`;
+  }).join('');
+}
+
+function resetFilters(){['f-pais','f-sector','f-tipo'].forEach(id=>document.getElementById(id).value='');renderOpps();}
+
+async function analizarOpp(id){
+  const o=OPPS.find(x=>x.id===id);if(!o)return;
+  const p=document.getElementById('ai-panel');
+  p.style.display='block';
+  document.getElementById('ai-title').textContent='Análisis IA · '+o.nombre;
+  document.getElementById('ai-sub').textContent='Score '+o.score+'/100 · '+o.sector;
+  document.getElementById('ai-body').innerHTML='<div class="thinking"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span style="margin-left:4px">Procesando análisis estratégico...</span></div>';
+  p.scrollIntoView({behavior:'smooth',block:'nearest'});
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:'Eres un analista experto en comercio internacional BRICS-LATAM. Respondes en español de forma concisa y accionable. Usa emojis solo para encabezados de sección.',messages:[{role:'user',content:`Analiza esta oportunidad BRICS-LATAM (máximo 300 palabras):\n\nNombre: ${o.nombre}\nSector: ${o.sector}\nTipo: ${o.tipo}\nPaíses: ${o.paises.join(', ')}\nScore: ${o.score}/100\nInversión: ${o.inversion}\nPlazo: ${o.plazo}\nTags: ${o.tags.join(', ')}\n\nEstructura:\n🎯 Potencial estratégico\n⚡ Ventajas competitivas de LATAM\n⚠️ Barreras y cómo superarlas\n🗺️ Ruta de entrada (3 pasos)\n📊 Proyección conservadora`}]})});
+    const d=await r.json();
+    document.getElementById('ai-body').textContent=d.content?.[0]?.text||'Sin respuesta.';
+  }catch(e){document.getElementById('ai-body').textContent='Error al conectar con el analizador IA. Verifica tu conexión.';}
+}
+
+function renderSectores(){
+  document.getElementById('sector-grid').innerHTML=SECTORES.map(s=>`
+    <div class="card" style="cursor:pointer">
+      <div style="font-size:28px;margin-bottom:10px">${s.icon}</div>
+      <div style="font-size:15px;font-weight:600;margin-bottom:2px">${s.nombre}</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Volumen: ${s.vol}</div>
+      ${s.bars.map(b=>`<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:12px"><span style="width:60px;color:var(--muted);flex-shrink:0">${b.l}</span><div style="flex:1;height:6px;background:var(--bg);border-radius:3px"><div style="height:100%;width:${b.v}%;background:${s.color};border-radius:3px"></div></div><span style="color:${s.color};font-weight:600">${b.v}</span></div>`).join('')}
+    </div>`).join('');
+}
+
+function renderComparador(){
+  document.getElementById('cmp-body').innerHTML=PAISES.map(p=>{
+    const nb=p.neg==='alto'?'rank-good':p.neg==='medio'?'rank-ok':'rank-bad';
+    const rb=p.riesgo==='bajo'?'rank-good':p.riesgo==='medio'?'rank-ok':'rank-bad';
+    const cc=p.crec>=5?'#1D9E75':p.crec>=3?'#C9A84C':'#E24B4A';
+    return`<tr><td style="font-weight:600">${p.pais}</td><td>$${p.pib}T</td><td style="color:${cc};font-weight:600">${p.crec}%</td><td><span class="rank ${nb}">${p.neg}</span></td><td><span class="rank ${rb}">${p.riesgo}</span></td><td>${p.arancel}</td><td>${p.tratados}</td></tr>`;
+  }).join('');
+}
+
+function calcROI(){
+  const inv=+document.getElementById('r-inv').value;
+  const mar=+document.getElementById('r-mar').value;
+  const per=+document.getElementById('r-per').value;
+  const bri=+document.getElementById('r-bri').value/10;
+  document.getElementById('v-inv').textContent='$'+inv.toLocaleString('es');
+  document.getElementById('v-mar').textContent=mar+'%';
+  document.getElementById('v-per').textContent=per+' año'+(per>1?'s':'');
+  document.getElementById('v-bri').textContent=bri.toFixed(1)+'x';
+  const ret=inv*(mar/100)*per*bri;
+  const roi=(ret/inv*100).toFixed(1);
+  document.getElementById('roi-val').textContent=roi+'%';
+  document.getElementById('roi-sub').textContent='Retorno neto: $'+Math.round(ret).toLocaleString('es')+' USD';
+}
+
+function setScen(key,el){
+  document.querySelectorAll('.scen-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const sc=SCENS[key];
+  document.getElementById('risk-rows').innerHTML=sc.rows.map(r=>`<div class="risk-row"><span>${r.l}</span><span style="font-weight:700;color:${r.c}">${r.s}/10</span></div>`).join('');
+  document.getElementById('scen-rec').textContent=sc.rec;
+}
+
+function renderCasos(){
+  document.getElementById('casos-list').innerHTML=CASOS.map(c=>`
+    <div class="caso">
+      <div class="caso-icon" style="background:${c.bg}">${c.icon}</div>
+      <div style="flex:1">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px">${c.meta}</div>
+        <div style="font-size:15px;font-weight:600;margin-bottom:6px">${c.title}</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px">${c.desc}</div>
+        <div class="caso-kpis">${c.kpis.map(k=>`<div><div class="caso-kpi-val">${k.v}</div><div class="caso-kpi-lbl">${k.l}</div></div>`).join('')}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderAlerts(){
+  const niveles=[['todos','Todas'],['positivo','Positivas'],['medio','Moderadas'],['alto','Críticas']];
+  document.getElementById('alert-filters').innerHTML=niveles.map(([k,l])=>`<button onclick="setAlertLevel('${k}',this)" style="padding:5px 13px;border-radius:20px;font-size:12px;border:1px solid var(--border);background:${alertLevel===k?'var(--bg)':'none'};color:var(--muted);cursor:pointer;font-weight:${alertLevel===k?600:400}">${l}</button>`).join('');
+  const list=alertLevel==='todos'?ALERTS:ALERTS.filter(a=>a.nivel===alertLevel);
+  document.getElementById('alerts-list').innerHTML=list.map((a,i)=>`
+    <div class="alert-card" style="border-left-color:${a.color}" onclick="analizarAlerta(${i})">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+            <span style="width:8px;height:8px;border-radius:50%;background:${a.color};display:inline-block;flex-shrink:0"></span>
+            <span style="font-size:14px;font-weight:600">${a.titulo}</span>
+          </div>
+          <div style="font-size:13px;color:var(--muted);margin-bottom:8px;line-height:1.6">${a.desc}</div>
+          <span class="pill pill-blue" style="margin-right:6px">${a.fecha}</span>
+          <span class="pill pill-gold">Impacto: ${a.impacto}</span>
+        </div>
+        <span style="font-size:12px;color:var(--purple);font-weight:600;margin-left:12px;flex-shrink:0">Análisis IA →</span>
+      </div>
+    </div>`).join('');
+}
+
+function setAlertLevel(k,el){alertLevel=k;renderAlerts();}
+
+async function analizarAlerta(idx){
+  const a=ALERTS[idx];
+  const p=document.getElementById('radar-panel');
+  p.style.display='block';p.style.borderColor='var(--purple)';
+  document.getElementById('radar-title').textContent='Análisis geopolítico · '+a.titulo;
+  document.getElementById('radar-sub').textContent='Impacto: '+a.impacto;
+  document.getElementById('radar-body').innerHTML='<div class="thinking"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span style="margin-left:4px">Procesando análisis geopolítico...</span></div>';
+  p.scrollIntoView({behavior:'smooth',block:'nearest'});
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,system:'Eres analista geopolítico especializado en BRICS-LATAM. Responde en español, conciso y estratégico. Máximo 250 palabras.',messages:[{role:'user',content:`Analiza el impacto de esta alerta para empresas latinoamericanas:\n\nTítulo: ${a.titulo}\nDescripción: ${a.desc}\nSectores: ${a.impacto}\nFecha: ${a.fecha}\n\nEstructura:\n🌍 Contexto geopolítico\n📈 Oportunidades concretas\n🛡️ Riesgos a monitorear\n✅ Acción inmediata recomendada`}]})});
+    const d=await r.json();
+    document.getElementById('radar-body').textContent=d.content?.[0]?.text||'Sin respuesta.';
+  }catch(e){document.getElementById('radar-body').textContent='Error de conexión. Intenta de nuevo.';}
+}
+
+function renderTendencias(){
+  const W=600,H=140,PL=36,PR=12,PT=10,PB=24;
+  const gW=W-PL-PR,gH=H-PT-PB;
+  const maxC=11,maxI=7;
+  const xStep=gW/(TENDENCIAS.length-1);
+  const cPts=TENDENCIAS.map((d,i)=>[PL+i*xStep,PT+gH-(d.c/maxC)*gH]);
+  const iPts=TENDENCIAS.map((d,i)=>[PL+i*xStep,PT+gH-(d.i/maxI)*gH]);
+  const path=(pts)=>pts.map((p,i)=>(i===0?'M':'L')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  const gridLines=[0,.25,.5,.75,1].map(t=>`<line x1="${PL}" y1="${(PT+gH*t).toFixed(1)}" x2="${W-PR}" y2="${(PT+gH*t).toFixed(1)}" stroke="#E5E3DC" stroke-width="0.5"/>`).join('');
+  const xLabels=TENDENCIAS.map((d,i)=>`<text x="${(PL+i*xStep).toFixed(1)}" y="${H-6}" text-anchor="middle" font-size="11" fill="#9E9C97">${d.y}</text>`).join('');
+  const dots=(pts,color)=>pts.map(p=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4" fill="${color}"/>`).join('');
+  document.getElementById('trend-svg').innerHTML=gridLines+
+    `<path d="${path(cPts)}" fill="none" stroke="#1D9E75" stroke-width="2.5" stroke-linejoin="round"/>`+
+    `<path d="${path(iPts)}" fill="none" stroke="#C9A84C" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6,3"/>`+
+    dots(cPts,'#1D9E75')+dots(iPts,'#C9A84C')+xLabels;
+
+  document.getElementById('sector-bars').innerHTML=SECS_PESO.map(d=>`
+    <div class="sector-bar-row">
+      <span class="sector-bar-label">${d.s}</span>
+      <div class="sector-bar-track"><div class="sector-bar-fill" style="width:${(d.p/30)*100}%;background:${d.c}"></div></div>
+      <span style="font-size:13px;font-weight:700;color:${d.c};min-width:32px;text-align:right">${d.p}%</span>
+    </div>`).join('');
+}
+
+function openModal(){document.getElementById('modal').classList.add('open');}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+function submitModal(){
+  const n=document.getElementById('m-nombre').value;
+  const e=document.getElementById('m-email').value;
+  if(!n||!e){alert('Por favor completa los campos requeridos.');return;}
+  closeModal();
+  alert('¡Gracias, '+n+'! Tu solicitud ha sido recibida. Nuestro equipo te contactará en menos de 48 horas a '+e);
+}
+
+// Poblar filtros
+const paises=[...new Set(OPPS.flatMap(o=>o.paises))].sort();
+const sects=[...new Set(OPPS.map(o=>o.sector))].sort();
+const tipos=[...new Set(OPPS.map(o=>o.tipo))].sort();
+paises.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;document.getElementById('f-pais').appendChild(o);});
+sects.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;document.getElementById('f-sector').appendChild(o);});
+tipos.forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;document.getElementById('f-tipo').appendChild(o);});
+
+// INIT
+renderOpps();renderSectores();renderComparador();
+calcROI();setScen('conservador',document.querySelector('.scen-tab'));
+renderCasos();renderAlerts();renderTendencias();
+</script>
+</body>
+</html>
