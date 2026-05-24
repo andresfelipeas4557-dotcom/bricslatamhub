@@ -175,6 +175,7 @@ textarea{resize:vertical;min-height:80px}
   <div class="nav-tabs">
     <button class="nav-tab active" onclick="goTo('hero')">Inicio</button>
     <button class="nav-tab" onclick="goTo('explorador')">Explorador</button>
+    <button class="nav-tab" onclick="goTo('perfiles')">Perfiles</button>
     <button class="nav-tab" onclick="goTo('sectores')">Sectores</button>
     <button class="nav-tab" onclick="goTo('comparador')">Comparador</button>
     <button class="nav-tab" onclick="goTo('financiero')">Modelos</button>
@@ -205,6 +206,13 @@ textarea{resize:vertical;min-height:80px}
     <div class="quick-card" onclick="goTo('financiero')"><div class="quick-icon">💰</div><div class="quick-name">Modelos financieros</div><div class="quick-desc">Simulador de ROI con escenarios conservador, base y optimista.</div></div>
     <div class="quick-card" onclick="goTo('radar')"><div class="quick-icon">🛰️</div><div class="quick-name">Radar geopolítico</div><div class="quick-desc">Alertas activas sobre tratados, políticas y tendencias 2025–2030.</div></div>
   </div>
+</div>
+
+<!-- PERFILES -->
+<div id="sec-perfiles" class="section">
+  <div class="sec-title">¿Cuál es tu perfil?</div>
+  <div class="sec-sub">Cuéntanos quién eres y te orientamos según tu caso dentro del ecosistema BRICS–LATAM</div>
+  <div id="perfiles-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px"></div>
 </div>
 
 <!-- EXPLORADOR -->
@@ -461,11 +469,31 @@ const SECS_PESO=[{s:"Agroindustria",p:28,c:"#1D9E75"},{s:"Minería & Litio",p:24
 
 let alertLevel="todos";
 
+const PERFILES=[
+  {icon:"🌾",bg:"#E1F5EE",color:"#1D9E75",titulo:"Productor / Exportador",pregunta:"¿Tienes un producto y quieres llevarlo a mercados BRICS?",desc:"Te ayudamos a identificar oportunidades reales, entender los requisitos de exportación y conectarte con compradores e importadores. Acompañamiento desde el primer paso.",accion:"Cuéntanos qué produces"},
+  {icon:"📦",bg:"#E6F1FB",color:"#378ADD",titulo:"Importador / Comprador",pregunta:"¿Buscas traer productos desde China, India u otros mercados BRICS?",desc:"Conectamos con proveedores confiables y te orientamos en el proceso de importación, costos y logística.",accion:"Cuéntanos qué buscas"},
+  {icon:"💰",bg:"#FDF6E3",color:"#A8852E",titulo:"Inversionista",pregunta:"¿Quieres invertir en proyectos de comercio con alto potencial?",desc:"Accede a oportunidades evaluadas en el corredor BRICS–LATAM, con análisis de riesgo-retorno e impacto sostenible.",accion:"Conoce las oportunidades"},
+  {icon:"🚚",bg:"#FAECE7",color:"#D85A30",titulo:"Operador logístico",pregunta:"¿Ofreces transporte, aduanas o almacenamiento?",desc:"Súmate a nuestra red de aliados logísticos y conéctate con exportadores e importadores que necesitan tus servicios.",accion:"Únete como aliado logístico"},
+  {icon:"🤝",bg:"#EEEDFE",color:"#534AB7",titulo:"Aliado / Entidad",pregunta:"¿Eres una cámara, gremio, cooperativa, asesor o entidad de apoyo?",desc:"Construyamos juntos el ecosistema. Buscamos alianzas con instituciones, cooperativas y organizaciones que impulsan el comercio y la cooperación regional.",accion:"Exploremos una alianza"},
+  {icon:"🧭",bg:"#E1F5EE",color:"#0F6E56",titulo:"Explorador",pregunta:"¿Aún no sabes por dónde empezar?",desc:"Tranquilo, todos empezamos así. Explora la plataforma, conoce cómo funciona el comercio BRICS–LATAM y descubre dónde encajas.",accion:"Quiero conocer más"},
+];
+
+function renderPerfiles(){
+  document.getElementById('perfiles-grid').innerHTML=PERFILES.map(p=>`
+    <div class="card" style="display:flex;flex-direction:column">
+      <div style="width:52px;height:52px;border-radius:12px;background:${p.bg};display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:14px">${p.icon}</div>
+      <div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px">${p.titulo}</div>
+      <div style="font-size:13px;font-weight:500;color:${p.color};margin-bottom:8px;line-height:1.4">${p.pregunta}</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px;flex:1">${p.desc}</div>
+      <button onclick="openModal()" style="width:100%;padding:10px;background:${p.color};color:#fff;border:none;border-radius:var(--radius);font-size:13px;font-weight:600;cursor:pointer">${p.accion} →</button>
+    </div>`).join('');
+}
+
 function goTo(sec){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('sec-'+sec).classList.add('active');
-  const map=['hero','explorador','sectores','comparador','financiero','casos','radar','tendencias'];
+  const map=['hero','perfiles','explorador','sectores','comparador','financiero','casos','radar','tendencias'];
   const idx=map.indexOf(sec);
   const tabs=document.querySelectorAll('.nav-tab');
   if(idx>=0&&tabs[idx])tabs[idx].classList.add('active');
@@ -479,7 +507,7 @@ function checkHash(){
     document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
     document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
     document.getElementById('sec-'+h).classList.add('active');
-    const map=['hero','explorador','sectores','comparador','financiero','casos','radar','tendencias'];
+    const map=['hero','perfiles','explorador','sectores','comparador','financiero','casos','radar','tendencias'];
     const idx=map.indexOf(h);
     const tabs=document.querySelectorAll('.nav-tab');
     if(idx>=0&&tabs[idx])tabs[idx].classList.add('active');
@@ -666,7 +694,7 @@ sects.forEach(s=>{const o=document.createElement('option');o.value=s;o.textConte
 tipos.forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;document.getElementById('f-tipo').appendChild(o);});
 
 // INIT
-renderOpps();renderSectores();renderComparador();
+renderOpps();renderSectores();renderComparador();renderPerfiles();
 calcROI();setScen('conservador',document.querySelector('.scen-tab'));
 renderCasos();renderAlerts();renderTendencias();
 checkHash();
